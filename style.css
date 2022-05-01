@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,4 +8,107 @@
 
 body, html {
     height: 100%;
+    background-color: rgb(192, 180, 180);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    outline: 10px solid rgb(105,105,105);
+    width: 60vh;
+    height: 83vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    flex: auto;
+    max-height: 25%;
+    background-color: rgb(145, 167, 113);
+    border: 5px solid rgb(167, 190, 132);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.input, .output {
+    flex: 1;
+    max-height: 50%;
+}
+
+.output {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.screen p {
+    display: flex;
+    font-size: 4em;
+}
+
+.buttons {
+    flex: auto;
+    background-color: black;
+    display: flex;
+    gap: 10px;
+    line-gap-override: 10px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-height: 75%;
+    padding: 10px;
+}
+
+.btn {
+    flex: auto;
+    background-color: gainsboro;
+    width: 92px;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bolder;
+}
+
+.btn.big {
+    width: 211px;
+}
+
+/* COLORS */
+
+.operator {
+    background-color: #F1B620;
+}
+
+.operator:active, .operator:hover {
+    background-color: #f1b620c4;
+}
+
+.delete {
+    background-color: #952B60;
+}
+
+.delete:active, .delete:hover {
+    background-color: #952b60bb;
+}
+
+.misc {
+    background-color: #626520;
+}
+
+.misc:active, .misc:hover {
+    background-color: #626520c2;
+}
+
+.number {
+    background-color: #3D91E0;
+}
+
+.number:hover, .number:active {
+    background-color: #3d91e0c9;
 }

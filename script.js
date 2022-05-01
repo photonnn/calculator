@@ -1,4 +1,4 @@
-function add(a, b) {
+/*function add(a, b) {
     return +a + +b;
 }
 
@@ -42,3 +42,4 @@ let operator = prompt("Choose an operator");
 let inputTwo = prompt("Choose a number");
 
 operate(inputOne, inputTwo, operator);
+*/
