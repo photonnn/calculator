@@ -213,11 +213,11 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-    return Math.round((+a * +b) * 10e10) / 10e10;
+    return +a * +b;
 }
 
 function divide(a, b) {
-    return Math.round((+a / +b) * 10e10) / 10e10;
+    return +a / +b;
 }
 
 function operate(a, b, operator) {
@@ -225,7 +225,7 @@ function operate(a, b, operator) {
     let answer;
     switch (operator) {
         case "+":
-            answer = add(a, b);
+            answer = Math.round(add(a, b) * 10e10)/10e10
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -234,7 +234,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "-":
-            answer = subtract(a, b);
+            answer = Math.round(subtract(a, b) * 10e10)/10e10
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -243,7 +243,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "*":
-            answer = multiply(a, b);
+            answer = Math.round(multiply(a, b) * 10e10)/10e10;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -252,7 +252,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "/":
-            answer = divide(a, b);
+            answer = Math.round(divide(a, b) * 10e10)/10e10;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
