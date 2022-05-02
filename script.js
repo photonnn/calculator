@@ -21,47 +21,47 @@ function operate(a, b, operator) {
     output.textContent = "";
     switch (operator) {
         case "+":
-            answer = add(a,b);
+            answer = add(a, b);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
                 output.textContent = parseFloat(answer.toFixed(6));
             }
-            calculator.ans = answer;
+            calculator.ans = output.textContent;
             break;
         case "-":
-            answer = subtract(a,b);
+            answer = subtract(a, b);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
                 output.textContent = parseFloat(answer.toFixed(6));
             }
-            calculator.ans = answer;
+            calculator.ans = output.textContent;
             break;
         case "*":
-            answer = multiply(a,b);
+            answer = multiply(a, b);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
                 output.textContent = parseFloat(answer.toFixed(6));
             }
-            calculator.ans = answer;
+            calculator.ans = output.textContent;
             break;
         case "/":
-            answer = divide(a,b);
+            answer = divide(a, b);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
                 output.textContent = parseFloat(answer.toFixed(6));
             }
-            calculator.ans = answer;
+            calculator.ans = output.textContent;
             break;
         case "=":
             operate(a, b, operator);
             return "";
     }
 
-    return calculator.ans;
+    return answer;
 }
 
 
@@ -119,6 +119,12 @@ function operator() {
         if (calculator.textContent != "=") {
             screen.textContent += calculator.textContent;
             calculator.operator = calculator.textContent;
+        } else if (calculator.textContent == "=") {
+            const output = document.querySelector(".output p");
+            calculator.ans = +parseFloat(calculator.firstNum);
+            output.textContent = +parseFloat(calculator.firstNum);
+            calculator.secondNum = 0;
+            screen.textContent = "";
         }
     } else {
         // run IF the last input was NOT an operator
@@ -144,7 +150,6 @@ function operator() {
 function AC() {
     screen.textContent = "";
     delete calculator.operator;
-    delete calculator.dot;
     calculator.firstNum = 0;
     calculator.secondNum = 0;
     const output = document.querySelector(".output p");
@@ -170,10 +175,26 @@ function DEL() {
 }
 
 function misc() {
-    screen.textContent += calculator.textContent;
-    if (!calculator.operator) {
-        calculator.firstNum += calculator.textContent;
+    if (calculator.textContent == ".") {
+        screen.textContent += calculator.textContent;
+        if (!calculator.operator) {
+            calculator.firstNum += calculator.textContent;
+        } else {
+            calculator.secondNum += calculator.textContent;
+        }
     } else {
-        calculator.secondNum += calculator.textContent;
+        /*
+        if (!calculator.operator) {
+        calculator.firstNum -= 2 * calculator.firstNum;
+        screen.textContent = calculator.firstNum;
+        } */
+        if (typeof (calculator.ans) != "undefined") {
+            screen.textContent += calculator.ans;
+            if (!calculator.operator) {
+                calculator.firstNum = calculator.ans;
+            } else {
+                calculator.secondNum = calculator.ans;
+            }
+        }
     }
 }

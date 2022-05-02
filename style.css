@@ -56,7 +56,7 @@ body {
 
 .screen p {
     display: flex;
-    font-size: 4em;
+    font-size: 3.5em;
     overflow-x: auto;
     overflow-y: hidden;
 }
