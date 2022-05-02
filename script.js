@@ -16,31 +16,52 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     const output = document.querySelector(".output p");
+    let answer;
+
     output.textContent = "";
     switch (operator) {
         case "+":
-            output.textContent = parseFloat(add(a, b).toFixed(4)).toExponential();
-            calculator.ans = output.textContent;
+            answer = add(a,b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = answer;
             break;
         case "-":
-            output.textContent = parseFloat(subtract(a, b).toFixed(4)).toExponential();
-            calculator.ans = output.textContent;
+            answer = subtract(a,b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = answer;
             break;
         case "*":
-            output.textContent = parseFloat(multiply(a, b).toFixed(4)).toExponential();
-            calculator.ans = output.textContent;
+            answer = multiply(a,b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = answer;
             break;
         case "/":
-            output.textContent = parseFloat(divide(a, b).toFixed(4)).toExponential();
-            calculator.ans = output.textContent;
+            answer = divide(a,b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = answer;
             break;
         case "=":
-            console.log(calculator);
             operate(a, b, operator);
             return "";
     }
 
-    return output.textContent;
+    return calculator.ans;
 }
 
 
@@ -56,6 +77,7 @@ const calculator = {
 };
 
 function display() {
+    console.table(calculator);
     calculator.textContent = this.textContent;
     switch (this.classList[0]) {
         case "number":
@@ -65,6 +87,7 @@ function display() {
             operator();
             break;
         case "misc":
+            misc();
             break;
         case "AC":
             AC();
@@ -100,7 +123,7 @@ function operator() {
     } else {
         // run IF the last input was NOT an operator
         if (!isNaN(+screen.textContent.charAt(screen.textContent.length - 1))) {
-            calculator.firstNum = operate(calculator.firstNum, 
+            calculator.firstNum = operate(calculator.firstNum,
                 calculator.secondNum, calculator.operator);
             calculator.secondNum = 0;
             screen.textContent = ""// USE ans in text INSTEAD
@@ -146,4 +169,11 @@ function DEL() {
 
 }
 
-
+function misc() {
+    screen.textContent += calculator.textContent;
+    if (!calculator.operator) {
+        calculator.firstNum += calculator.textContent;
+    } else {
+        calculator.secondNum += calculator.textContent;
+    }
+}
