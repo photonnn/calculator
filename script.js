@@ -111,7 +111,7 @@ function operator() {
             const output = document.querySelector(".output p");
             // 09 => 9, leaved 0 before because of dot 
             // ( you can write .5 + .5 = 1)
-            calculator.ans = +parseFloat(calculator.firstNum); 
+            calculator.ans = +parseFloat(calculator.firstNum);
             output.textContent = +parseFloat(calculator.firstNum);
             calculator.secondNum = 0;
             screen.textContent = ""; // necessary, for it causes bugs >:D
