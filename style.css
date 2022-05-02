@@ -5,9 +5,14 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Orbitron', sans-serif;
+
+    /* SCROLL FOR FIREFOX*/
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     background-color: rgb(192, 180, 180);
 }
@@ -19,9 +24,9 @@ body {
 }
 
 .container {
-    outline: 10px solid rgb(105,105,105);
-    width: 60vh;
-    height: 83vh;
+    outline: 10px solid rgb(105, 105, 105);
+    width: 500px;
+    height: 700px;
     display: flex;
     flex-direction: column;
 }
@@ -34,9 +39,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
 }
 
-.input, .output {
+.input,
+.output {
     flex: 1;
     max-height: 50%;
 }
@@ -44,11 +51,34 @@ body {
 .output {
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 8px;
 }
 
 .screen p {
     display: flex;
     font-size: 4em;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.screen p::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    /* width of the entire scrollbar */
+}
+
+.screen p::-webkit-scrollbar-track {
+    background: green;
+    /* color of the tracking area */
+}
+
+.screen p::-webkit-scrollbar-thumb {
+    background-color: rebeccapurple;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid rebeccapurple;
+    /* creates padding around scroll thumb */
 }
 
 .buttons {
@@ -63,7 +93,7 @@ body {
     padding: 10px;
 }
 
-.btn {
+button {
     flex: auto;
     background-color: gainsboro;
     width: 92px;
@@ -75,7 +105,7 @@ body {
     font-weight: bolder;
 }
 
-.btn.big {
+button.big {
     width: 211px;
 }
 
@@ -85,7 +115,8 @@ body {
     background-color: #F1B620;
 }
 
-.operator:active, .operator:hover {
+.operator:active,
+.operator:hover {
     background-color: #f1b620c4;
 }
 
@@ -93,7 +124,8 @@ body {
     background-color: #952B60;
 }
 
-.delete:active, .delete:hover {
+.delete:active,
+.delete:hover {
     background-color: #952b60bb;
 }
 
@@ -101,7 +133,8 @@ body {
     background-color: #626520;
 }
 
-.misc:active, .misc:hover {
+.misc:active,
+.misc:hover {
     background-color: #626520c2;
 }
 
@@ -109,6 +142,7 @@ body {
     background-color: #3D91E0;
 }
 
-.number:hover, .number:active {
+.number:hover,
+.number:active {
     background-color: #3d91e0c9;
 }
