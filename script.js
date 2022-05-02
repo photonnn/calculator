@@ -1,68 +1,7 @@
-function add(a, b) {
-    return +a + +b;
-}
+/*
 
-function subtract(a, b) {
-    return +a - +b;
-}
 
-function multiply(a, b) {
-    return Math.round((+a * +b) * 10e9) / 10e9;
-}
-
-function divide(a, b) {
-    return Math.round((+a / +b) * 10e9) / 10e9;
-}
-
-function operate(a, b, operator) {
-    const output = document.querySelector(".output p");
-    let answer;
-
-    output.textContent = "";
-    switch (operator) {
-        case "+":
-            answer = add(a, b);
-            if (answer > 1000000) {
-                output.textContent = answer.toExponential(6);
-            } else {
-                output.textContent = parseFloat(answer.toFixed(6));
-            }
-            calculator.ans = output.textContent;
-            break;
-        case "-":
-            answer = subtract(a, b);
-            if (answer > 1000000) {
-                output.textContent = answer.toExponential(6);
-            } else {
-                output.textContent = parseFloat(answer.toFixed(6));
-            }
-            calculator.ans = output.textContent;
-            break;
-        case "*":
-            answer = multiply(a, b);
-            if (answer > 1000000) {
-                output.textContent = answer.toExponential(6);
-            } else {
-                output.textContent = parseFloat(answer.toFixed(6));
-            }
-            calculator.ans = output.textContent;
-            break;
-        case "/":
-            answer = divide(a, b);
-            if (answer > 1000000) {
-                output.textContent = answer.toExponential(6);
-            } else {
-                output.textContent = parseFloat(answer.toFixed(6));
-            }
-            calculator.ans = output.textContent;
-            break;
-        case "=":
-            operate(a, b, operator);
-            return "";
-    }
-
-    return answer;
-}
+*/
 
 const calculator = {
     firstNum: 0,
@@ -72,6 +11,7 @@ const calculator = {
 
 const screen = document.querySelector(".input p");
 const btns = [...document.querySelectorAll("button")];
+
 for (const btn of btns) {
     btn.addEventListener('click', () => {
         display(btn.textContent, btn.classList[0]);
@@ -79,7 +19,7 @@ for (const btn of btns) {
 }
 
 document.addEventListener('keydown', event => {
-    event.preventDefault();
+    event.preventDefault(); // shift + "n" or N does not work, so necessary
     if (!isNaN(event.key)) {
         display(event.key, "number");
     } else {
@@ -108,7 +48,7 @@ document.addEventListener('keydown', event => {
             case ".":
                 display(".", "misc");
                 break;
-            case "F5": // preventDefaults() is on and I like to F5 :D
+            case "F5": // preventDefault() is on and I like to F5 :D
                 location.reload();
                 break;
             case "Enter":
@@ -123,6 +63,8 @@ document.addEventListener('keydown', event => {
 
 
 function display(textContent, firstClass) {
+    console.table(calculator);
+    console.log(calculator.firstNum.toString().includes("."));
     calculator.textContent = textContent; // change name maybe
     switch (firstClass) {
         case "number":
@@ -159,6 +101,7 @@ function number() {
     }
 }
 
+// +, -, *, / and =
 function operator() {
     if (!calculator.operator) {
         if (calculator.textContent != "=") {
@@ -166,10 +109,12 @@ function operator() {
             calculator.operator = calculator.textContent;
         } else if (calculator.textContent == "=") {
             const output = document.querySelector(".output p");
-            calculator.ans = +parseFloat(calculator.firstNum);
+            // 09 => 9, leaved 0 before because of dot 
+            // ( you can write .5 + .5 = 1)
+            calculator.ans = +parseFloat(calculator.firstNum); 
             output.textContent = +parseFloat(calculator.firstNum);
             calculator.secondNum = 0;
-            screen.textContent = "";
+            screen.textContent = ""; // necessary, for it causes bugs >:D
         }
     } else {
         // run IF the last input was NOT an operator
@@ -219,13 +164,19 @@ function DEL() {
 
 }
 
+// For dot (.) and Ans
 function misc() {
     if (calculator.textContent == ".") {
-        screen.textContent += calculator.textContent;
         if (!calculator.operator) {
-            calculator.firstNum += calculator.textContent;
+            if (!calculator.firstNum.toString().includes(".")) {
+                calculator.firstNum += calculator.textContent;
+                screen.textContent += calculator.textContent;
+            }
         } else {
-            calculator.secondNum += calculator.textContent;
+            if (!calculator.secondNum.toString().includes(".")) {
+                calculator.secondNum += calculator.textContent;
+                screen.textContent += calculator.textContent;
+            }
         }
     } else {
         /*
@@ -234,12 +185,81 @@ function misc() {
         screen.textContent = calculator.firstNum;
         } */
         if (typeof (calculator.ans) != "undefined") {
+            // same reasoning as with number()
+            if (screen.textContent == "") {
+                calculator.firstNum = 0;
+            }
             screen.textContent += calculator.ans;
             if (!calculator.operator) {
-                calculator.firstNum = calculator.ans;
+                calculator.firstNum += calculator.ans;
             } else {
-                calculator.secondNum = calculator.ans;
+                calculator.secondNum += calculator.ans;
             }
         }
     }
+}
+
+function add(a, b) {
+    return +a + +b;
+}
+
+function subtract(a, b) {
+    return +a - +b;
+}
+
+function multiply(a, b) {
+    return Math.round((+a * +b) * 10e10) / 10e10;
+}
+
+function divide(a, b) {
+    return Math.round((+a / +b) * 10e10) / 10e10;
+}
+
+function operate(a, b, operator) {
+    const output = document.querySelector(".output p");
+    let answer;
+    switch (operator) {
+        case "+":
+            answer = add(a, b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = output.textContent;
+            break;
+        case "-":
+            answer = subtract(a, b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = output.textContent;
+            break;
+        case "*":
+            answer = multiply(a, b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = output.textContent;
+            break;
+        case "/":
+            answer = divide(a, b);
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = output.textContent;
+            break;
+        case "=":
+            operate(a, b, operator);
+            return "";
+    }
+
+    return answer; // calculating with non-rounded numbers only and
+    // outputting it rounded
 }
