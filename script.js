@@ -68,18 +68,26 @@ function operate(a, b, operator) {
 const screen = document.querySelector(".input p");
 const btns = [...document.querySelectorAll("button")];
 for (const btn of btns) {
-    btn.addEventListener('click', display);
+    btn.addEventListener('click', () => {
+        display(btn.textContent, btn.classList[0]);
+    });
 }
+
+document.addEventListener('keydown', event => {
+    console.log(event.key);
+    if (!isNaN(event.key)) {
+        display(event.key, "number");
+    }
+});
 
 const calculator = {
     firstNum: 0,
     secondNum: 0,
 };
 
-function display() {
-    console.table(calculator);
-    calculator.textContent = this.textContent;
-    switch (this.classList[0]) {
+function display(textContent, firstClass) {
+    calculator.textContent = textContent; // change name maybe
+    switch (firstClass) {
         case "number":
             number();
             break;
