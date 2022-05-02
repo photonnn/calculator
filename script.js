@@ -9,7 +9,7 @@ const calculator = {
 };
 
 
-const screen = document.querySelector(".input p");
+const calcScreen = document.querySelector(".input p");
 const btns = [...document.querySelectorAll("button")];
 
 for (const btn of btns) {
@@ -88,10 +88,10 @@ function display(textContent, firstClass) {
 function number() {
     // If user chooses a number after calculation and not an operator
     // reset and start anew, hence this if statement
-    if (screen.textContent == "") {
+    if (calcScreen.textContent == "") {
         calculator.firstNum = 0;
     }
-    screen.textContent += calculator.textContent;
+    calcScreen.textContent += calculator.textContent;
     if (!calculator.operator) {
         const output = document.querySelector(".output p");
         output.textContent = "";
@@ -105,7 +105,7 @@ function number() {
 function operator() {
     if (!calculator.operator) {
         if (calculator.textContent != "=") {
-            screen.textContent += calculator.textContent;
+            calcScreen.textContent += calculator.textContent;
             calculator.operator = calculator.textContent;
         } else if (calculator.textContent == "=") {
             const output = document.querySelector(".output p");
@@ -114,17 +114,17 @@ function operator() {
             calculator.ans = +parseFloat(calculator.firstNum);
             output.textContent = +parseFloat(calculator.firstNum);
             calculator.secondNum = 0;
-            screen.textContent = ""; // necessary, for it causes bugs >:D
+            calcScreen.textContent = ""; // necessary, for it causes bugs >:D
         }
     } else {
         // run IF the last input was NOT an operator
-        if (!isNaN(+screen.textContent.charAt(screen.textContent.length - 1))) {
+        if (!isNaN(+calcScreen.textContent.charAt(calcScreen.textContent.length - 1))) {
             calculator.firstNum = operate(calculator.firstNum,
                 calculator.secondNum, calculator.operator);
             calculator.secondNum = 0;
-            screen.textContent = ""// USE ans in text INSTEAD
+            calcScreen.textContent = "";// USE ans in text INSTEAD
             if (calculator.textContent != "=") {
-                screen.textContent += calculator.textContent;
+                calcScreen.textContent += calculator.textContent;
                 calculator.operator = calculator.textContent;
             }
         } else {
@@ -138,7 +138,7 @@ function operator() {
 
 // all clear
 function AC() {
-    screen.textContent = "";
+    calcScreen.textContent = "";
     delete calculator.operator;
     calculator.firstNum = 0;
     calculator.secondNum = 0;
@@ -148,7 +148,7 @@ function AC() {
 
 // delete only last input
 function DEL() {
-    const toDelete = screen.textContent.charAt(screen.textContent.length - 1);
+    const toDelete = calcScreen.textContent.charAt(calcScreen.textContent.length - 1);
     if (isNaN(+toDelete)) {
         delete calculator.operator;
     } else {
@@ -160,7 +160,7 @@ function DEL() {
                 calculator.secondNum.length - 1);
         }
     }
-    screen.textContent = screen.textContent.slice(0, -1);
+    calcScreen.textContent = calcScreen.textContent.slice(0, -1);
 
 }
 
@@ -170,26 +170,26 @@ function misc() {
         if (!calculator.operator) {
             if (!calculator.firstNum.toString().includes(".")) {
                 calculator.firstNum += calculator.textContent;
-                screen.textContent += calculator.textContent;
+                calcScreen.textContent += calculator.textContent;
             }
         } else {
             if (!calculator.secondNum.toString().includes(".")) {
                 calculator.secondNum += calculator.textContent;
-                screen.textContent += calculator.textContent;
+                calcScreen.textContent += calculator.textContent;
             }
         }
     } else {
         /*
         if (!calculator.operator) {
         calculator.firstNum -= 2 * calculator.firstNum;
-        screen.textContent = calculator.firstNum;
+        calcScreen.textContent = calculator.firstNum;
         } */
         if (typeof (calculator.ans) != "undefined") {
             // same reasoning as with number()
-            if (screen.textContent == "") {
+            if (calcScreen.textContent == "") {
                 calculator.firstNum = 0;
             }
-            screen.textContent += calculator.ans;
+            calcScreen.textContent += calculator.ans;
             if (!calculator.operator) {
                 calculator.firstNum += calculator.ans;
             } else {
