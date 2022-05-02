@@ -103,7 +103,7 @@ function operator() {
             calculator.firstNum = operate(calculator.firstNum, 
                 calculator.secondNum, calculator.operator);
             calculator.secondNum = 0;
-            screen.textContent = calculator.ans; // USE ans in text INSTEAD
+            screen.textContent = ""// USE ans in text INSTEAD
             if (calculator.textContent != "=") {
                 screen.textContent += calculator.textContent;
                 calculator.operator = calculator.textContent;
