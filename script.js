@@ -63,8 +63,6 @@ document.addEventListener('keydown', event => {
 
 
 function display(textContent, firstClass) {
-    console.table(calculator);
-    console.log(calculator.firstNum.toString().includes("."));
     calculator.textContent = textContent; // change name maybe
     switch (firstClass) {
         case "number":
@@ -83,6 +81,7 @@ function display(textContent, firstClass) {
             DEL();
             break;
     }
+    console.table(calculator);
 }
 
 function number() {
@@ -149,14 +148,18 @@ function AC() {
 // delete only last input
 function DEL() {
     const toDelete = calcScreen.textContent.charAt(calcScreen.textContent.length - 1);
-    if (isNaN(+toDelete)) {
+    if (isNaN(+toDelete) && toDelete != ".") {
         delete calculator.operator;
     } else {
         if (calculator.secondNum == 0) {
-            calculator.firstNum = calculator.firstNum.slice(0,
-                calculator.firstNum.length - 1);
+            if (toDelete == ".") { // big happened, rethink code maybe :(?
+                calculator.secondNum = 0;
+            } else {
+                calculator.firstNum = calculator.firstNum.toString().slice(0,
+                    calculator.firstNum.length - 1);
+            }
         } else {
-            calculator.secondNum = calculator.secondNum.slice(0,
+            calculator.secondNum = calculator.secondNum.toString().slice(0,
                 calculator.secondNum.length - 1);
         }
     }
@@ -186,6 +189,8 @@ function misc() {
         } */
         if (typeof (calculator.ans) != "undefined") {
             // same reasoning as with number()
+            const output = document.querySelector(".output p");
+            output.textContent = "";
             if (calcScreen.textContent == "") {
                 calculator.firstNum = 0;
             }
