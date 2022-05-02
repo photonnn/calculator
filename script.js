@@ -64,6 +64,11 @@ function operate(a, b, operator) {
     return answer;
 }
 
+const calculator = {
+    firstNum: 0,
+    secondNum: 0,
+};
+
 
 const screen = document.querySelector(".input p");
 const btns = [...document.querySelectorAll("button")];
@@ -74,16 +79,48 @@ for (const btn of btns) {
 }
 
 document.addEventListener('keydown', event => {
-    console.log(event.key);
+    event.preventDefault();
     if (!isNaN(event.key)) {
         display(event.key, "number");
+    } else {
+        switch (event.key) {
+            case "A": // ALL CLEAR
+                display("AC", "AC");
+                break;
+            case "Backspace":
+                display("DEL", "DEL");
+                break;
+            case "N": // ANS
+                display("Ans", "misc");
+                break;
+            case "/":
+                display("/", "operator");
+                break;
+            case "*":
+                display("*", "operator");
+                break;
+            case "+":
+                display("+", "operator");
+                break;
+            case "-":
+                display("-", "operator");
+                break;
+            case ".":
+                display(".", "misc");
+                break;
+            case "F5": // preventDefaults() is on and I like to F5 :D
+                location.reload();
+                break;
+            case "Enter":
+                display("=", "operator");
+                break;
+            default:
+                console.log("Not supported");
+        }
     }
+
 });
 
-const calculator = {
-    firstNum: 0,
-    secondNum: 0,
-};
 
 function display(textContent, firstClass) {
     calculator.textContent = textContent; // change name maybe
