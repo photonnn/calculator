@@ -1,7 +1,7 @@
 # calculator
 
 Features:
-  - Scroll when you overflow
+  - Scroll when you overflow (auto-scroll enabled)
     (shift + mouse scroll works for horizonal scrolls)
   - Full keyboard support
   - Style change when pressing buttons
