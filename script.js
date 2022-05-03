@@ -194,6 +194,12 @@ function DEL() {
     }
     calcScreen.textContent = calcScreen.textContent.slice(0, -1);
 
+    if (calcScreen.textContent == "") {
+        const output = document.querySelector(".output p");
+        output.textContent = "";
+    }
+
+
 }
 
 // For dot (.) and Ans
