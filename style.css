@@ -103,6 +103,7 @@ button {
     align-items: center;
     font-size: 1.5em;
     font-weight: bolder;
+    border: 1px white solid;
 }
 
 button.big {
@@ -139,6 +140,17 @@ button.big {
 .misc:hover,
 .keymisc {
     background-color: #626520c2;
+}
+
+.keymisc,
+.keynumber,
+.keyoperator,
+.keydelete,
+.misc:active,
+.number:active,
+.operator:active,
+.delete:active {
+    border-style: none;
 }
 
 .number {
