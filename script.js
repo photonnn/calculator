@@ -28,6 +28,10 @@ function addKeyPressEffect(arg0, arg) {
 
 
 document.addEventListener('keydown', event => {
+    // cause NaN bug if you press spacebar!!
+    if (event.code == "Space") {
+        return;
+    }
     event.preventDefault(); // shift + "n" or N does not work, so necessary
     if (!isNaN(event.key)) {
         display(event.key, "number");
