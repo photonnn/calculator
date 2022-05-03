@@ -87,6 +87,7 @@ document.addEventListener('keydown', event => {
                 console.log("Not supported");
         }
     }
+    document.querySelector(".screen p").scrollLeft += 100;
 
 });
 
