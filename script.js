@@ -253,7 +253,7 @@ function operate(a, b, operator) {
     const output = document.querySelector(".output p");
     switch (operator) {
         case "+":
-            answer = Math.round(add(a, b) * 10e16) / 10e16
+            answer = Math.round(add(a, b) * 10e15) / 10e15;
             console.log(answer);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
@@ -263,16 +263,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "-":
-            answer = Math.round(subtract(a, b) * 10e16) / 10e16
-            if (answer > 1000000) {
-                output.textContent = answer.toExponential(6);
-            } else {
-                output.textContent = parseFloat(answer.toFixed(6));
-            }
-            calculator.ans = output.textContent;
-            break;
-        case "*":
-            answer = Math.round(multiply(a, b) * 10e16) / 10e16;
+            answer = Math.round(subtract(a, b) * 10e15) / 10e15;
             console.log(answer);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
@@ -281,8 +272,17 @@ function operate(a, b, operator) {
             }
             calculator.ans = output.textContent;
             break;
+        case "*":
+            answer = Math.round(multiply(a, b) * 10e15) / 10e15;
+            if (answer > 1000000) {
+                output.textContent = answer.toExponential(6);
+            } else {
+                output.textContent = parseFloat(answer.toFixed(6));
+            }
+            calculator.ans = output.textContent;
+            break;
         case "/":
-            answer = Math.round(divide(a, b) * 10e16) / 10e16;
+            answer = Math.round(divide(a, b) * 10e15) / 10e15;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
