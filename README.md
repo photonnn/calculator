@@ -20,3 +20,11 @@ Keyboard support:
   
   Other keys will work normally:
   Ex: Key combos like for asterix (*) work
+
+
+EDIT: Now after writing this code I realise that my code
+basically screams junior. For the next projects I 
+promise I will include some kind of form of documention
+that will precisely say what I am trying to do - that is 
+include a plan before actually starting to write the code.
+But for now sorry about the code C:
