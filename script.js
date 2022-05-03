@@ -1,6 +1,9 @@
 /*
 
+    TO DO:
 
+    AN AN EFFECT WHEN YOU USE KEYBOARD TO PRESS A BUTTON,
+    MAYBE TRY A SOUND EFFECT AS WELL!
 */
 
 const calculator = {
@@ -18,41 +21,67 @@ for (const btn of btns) {
     });
 }
 
+function addKeyPressEffect(arg0, arg) {
+    for (const btn of btns) {
+        if (btn.textContent == arg0) {
+            btn.classList.toggle(`key${arg}`);
+            setTimeout(() => btn.classList.toggle(`key${arg}`), 150);
+        }
+    }
+}
+
+
 document.addEventListener('keydown', event => {
     event.preventDefault(); // shift + "n" or N does not work, so necessary
     if (!isNaN(event.key)) {
         display(event.key, "number");
+        // add effect when you press a button
+        for (const btn of btns) {
+            if (btn.textContent == event.key) {
+                btn.classList.toggle("keynumber");
+                setTimeout(() => btn.classList.toggle("keynumber"), 150);
+            }
+        }
     } else {
         switch (event.key) {
             case "A": // ALL CLEAR
                 display("AC", "AC");
+                addKeyPressEffect("AC", "delete");
                 break;
             case "Backspace":
                 display("DEL", "DEL");
+                addKeyPressEffect("DEL", "delete");
                 break;
             case "N": // ANS
                 display("Ans", "misc");
+                addKeyPressEffect("Ans", "misc");
                 break;
             case "/":
                 display("/", "operator");
+                addKeyPressEffect("/", "operator");
                 break;
             case "*":
                 display("*", "operator");
+                addKeyPressEffect("*", "operator");
                 break;
             case "+":
                 display("+", "operator");
+                addKeyPressEffect("+", "operator");
                 break;
             case "-":
                 display("-", "operator");
+                addKeyPressEffect("-", "operator");
                 break;
             case ".":
                 display(".", "misc");
+                addKeyPressEffect(".", "misc");
                 break;
             case "F5": // preventDefault() is on and I like to F5 :D
                 location.reload();
                 break;
             case "Enter":
                 display("=", "operator");
+                addKeyPressEffect("=", "operator");
                 break;
             default:
                 console.log("Not supported");
@@ -225,7 +254,7 @@ function operate(a, b, operator) {
     let answer;
     switch (operator) {
         case "+":
-            answer = Math.round(add(a, b) * 10e10)/10e10
+            answer = Math.round(add(a, b) * 10e10) / 10e10
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -234,7 +263,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "-":
-            answer = Math.round(subtract(a, b) * 10e10)/10e10
+            answer = Math.round(subtract(a, b) * 10e10) / 10e10
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -243,7 +272,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "*":
-            answer = Math.round(multiply(a, b) * 10e10)/10e10;
+            answer = Math.round(multiply(a, b) * 10e10) / 10e10;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -252,7 +281,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "/":
-            answer = Math.round(divide(a, b) * 10e10)/10e10;
+            answer = Math.round(divide(a, b) * 10e10) / 10e10;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {

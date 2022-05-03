@@ -116,7 +116,8 @@ button.big {
 }
 
 .operator:active,
-.operator:hover {
+.operator:hover,
+.keyoperator {
     background-color: #f1b620c4;
 }
 
@@ -125,7 +126,8 @@ button.big {
 }
 
 .delete:active,
-.delete:hover {
+.delete:hover,
+.keydelete {
     background-color: #952b60bb;
 }
 
@@ -134,7 +136,8 @@ button.big {
 }
 
 .misc:active,
-.misc:hover {
+.misc:hover,
+.keymisc {
     background-color: #626520c2;
 }
 
@@ -143,6 +146,7 @@ button.big {
 }
 
 .number:hover,
-.number:active {
+.number:active,
+.keynumber {
     background-color: #3d91e0c9;
 }
