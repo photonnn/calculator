@@ -106,7 +106,6 @@ function display(textContent, firstClass) {
             evalDEL();
             break;
     }
-    console.table(calculator);
 }
 
 function evalNumber() {
@@ -252,10 +251,10 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     const output = document.querySelector(".output p");
-    let answer;
     switch (operator) {
         case "+":
-            answer = Math.round(add(a, b) * 10e10) / 10e10
+            answer = Math.round(add(a, b) * 10e16) / 10e16
+            console.log(answer);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -264,7 +263,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "-":
-            answer = Math.round(subtract(a, b) * 10e10) / 10e10
+            answer = Math.round(subtract(a, b) * 10e16) / 10e16
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -273,7 +272,8 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "*":
-            answer = Math.round(multiply(a, b) * 10e10) / 10e10;
+            answer = Math.round(multiply(a, b) * 10e16) / 10e16;
+            console.log(answer);
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
@@ -282,7 +282,7 @@ function operate(a, b, operator) {
             calculator.ans = output.textContent;
             break;
         case "/":
-            answer = Math.round(divide(a, b) * 10e10) / 10e10;
+            answer = Math.round(divide(a, b) * 10e16) / 10e16;
             if (answer > 1000000) {
                 output.textContent = answer.toExponential(6);
             } else {
