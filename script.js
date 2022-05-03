@@ -1,9 +1,5 @@
 /*
 
-    TO DO:
-
-    AN AN EFFECT WHEN YOU USE KEYBOARD TO PRESS A BUTTON,
-    MAYBE TRY A SOUND EFFECT AS WELL!
 */
 
 const calculator = {
@@ -92,28 +88,28 @@ document.addEventListener('keydown', event => {
 
 
 function display(textContent, firstClass) {
-    calculator.textContent = textContent; // change name maybe
+    calculator.textContent = textContent;
     switch (firstClass) {
         case "number":
-            number();
+            evalNumber();
             break;
         case "operator":
-            operator();
+            evalOperator();
             break;
         case "misc":
-            misc();
+            evalMisc();
             break;
         case "AC":
-            AC();
+            evalAC();
             break;
         case "DEL":
-            DEL();
+            evalDEL();
             break;
     }
     console.table(calculator);
 }
 
-function number() {
+function evalNumber() {
     // If user chooses a number after calculation and not an operator
     // reset and start anew, hence this if statement
     if (calcScreen.textContent == "") {
@@ -130,7 +126,7 @@ function number() {
 }
 
 // +, -, *, / and =
-function operator() {
+function evalOperator() {
     if (!calculator.operator) {
         if (calculator.textContent != "=") {
             calcScreen.textContent += calculator.textContent;
@@ -142,15 +138,18 @@ function operator() {
             calculator.ans = +parseFloat(calculator.firstNum);
             output.textContent = +parseFloat(calculator.firstNum);
             calculator.secondNum = 0;
-            calcScreen.textContent = ""; // necessary, for it causes bugs >:D
+            calcScreen.textContent = ""; // cleared, so screen doesn't stack up
         }
     } else {
         // run IF the last input was NOT an operator
-        if (!isNaN(+calcScreen.textContent.charAt(calcScreen.textContent.length - 1))) {
+        // calculate using operate() only a single pair of numbers at a time:
+        // aka 12 + 7 - 5 * 3 = 42
+        if (!isNaN(+calcScreen.textContent.charAt(
+            calcScreen.textContent.length - 1))) {
             calculator.firstNum = operate(calculator.firstNum,
                 calculator.secondNum, calculator.operator);
             calculator.secondNum = 0;
-            calcScreen.textContent = "";// USE ans in text INSTEAD
+            calcScreen.textContent = ""; // cleared, so screen doesn't stack up
             if (calculator.textContent != "=") {
                 calcScreen.textContent += calculator.textContent;
                 calculator.operator = calculator.textContent;
@@ -165,7 +164,7 @@ function operator() {
 }
 
 // all clear
-function AC() {
+function evalAC() {
     calcScreen.textContent = "";
     delete calculator.operator;
     calculator.firstNum = 0;
@@ -175,18 +174,16 @@ function AC() {
 }
 
 // delete only last input
-function DEL() {
+function evalDEL() {
     const toDelete = calcScreen.textContent.charAt(calcScreen.textContent.length - 1);
     if (isNaN(+toDelete) && toDelete != ".") {
         delete calculator.operator;
     } else {
-        if (calculator.secondNum == 0) {
-            if (toDelete == ".") { // big happened, rethink code maybe :(?
-                calculator.secondNum = 0;
-            } else {
-                calculator.firstNum = calculator.firstNum.toString().slice(0,
-                    calculator.firstNum.length - 1);
-            }
+        // strict necessary because when secondNum == 0, will yield true even 
+        // if sN is "0."
+        if (calculator.secondNum === "0") {
+            calculator.firstNum = calculator.firstNum.toString().slice(0,
+                calculator.firstNum.length - 1);
         } else {
             calculator.secondNum = calculator.secondNum.toString().slice(0,
                 calculator.secondNum.length - 1);
@@ -203,7 +200,8 @@ function DEL() {
 }
 
 // For dot (.) and Ans
-function misc() {
+function evalMisc() {
+    // DOT
     if (calculator.textContent == ".") {
         if (!calculator.operator) {
             if (!calculator.firstNum.toString().includes(".")) {
@@ -217,15 +215,12 @@ function misc() {
             }
         }
     } else {
-        /*
-        if (!calculator.operator) {
-        calculator.firstNum -= 2 * calculator.firstNum;
-        calcScreen.textContent = calculator.firstNum;
-        } */
+        // ANS
+        // when used hasn't calculated anything yet
         if (typeof (calculator.ans) != "undefined") {
-            // same reasoning as with number()
             const output = document.querySelector(".output p");
             output.textContent = "";
+            // same reasoning as with number()
             if (calcScreen.textContent == "") {
                 calculator.firstNum = 0;
             }
